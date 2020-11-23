@@ -23,7 +23,7 @@ public class RationalNumber extends RealNumber {
   }
 
   public double getValue(){
-    return numerator/denominator;
+    return numerator / (double) denominator;
   }
 
   /**
@@ -50,6 +50,8 @@ public class RationalNumber extends RealNumber {
   *@return true when the RationalNumbers have the same numerators and denominators, false otherwise.
   */
   public boolean equals(RationalNumber other){
+    other.reduce();
+    reduce();
     return numerator==other.getNumerator() && denominator==other.getDenominator();
   }
 
@@ -80,10 +82,7 @@ public class RationalNumber extends RealNumber {
     int rem = 1;
     while (rem!=0){
       rem = big % small;
-      if (rem==0){
-        return small;
-      }
-      else{
+      if (rem!=0){
         big = small;
         small = rem;
       }
@@ -97,8 +96,9 @@ public class RationalNumber extends RealNumber {
   *reduced after construction.
   */
   private void reduce(){
-    numerator = numerator / gcd(numerator, denominator);
-    denominator = denominator / gcd(numerator, denominator);
+    int gcf = gcd(numerator, denominator);
+    numerator = numerator / gcf;
+    denominator = denominator / gcf;
   }
   /******************Operations Return a new RationalNumber!!!!****************/
   /**
