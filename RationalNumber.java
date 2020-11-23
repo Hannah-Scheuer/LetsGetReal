@@ -8,7 +8,7 @@ public class RationalNumber extends RealNumber {
   */
   public RationalNumber(int nume, int deno){
     super(0.0);//this value is ignored!
-    if (deno = 0){
+    if (deno == 0){
       numerator = 0;
       denominator = 1;
     }
@@ -23,7 +23,7 @@ public class RationalNumber extends RealNumber {
   }
 
   public double getValue(){
-    return 0.0;
+    return numerator/denominator;
   }
 
   /**
@@ -68,13 +68,13 @@ public class RationalNumber extends RealNumber {
   private static int gcd(int a, int b){
     int big =0;
     int small =0;
-    if (a>b){
-      big = a;
-      small= b;
+    if (Math.abs(a)>Math.abs(b)){
+      big = Math.abs(a);
+      small= Math.abs(b);
     }
     else{
-      big = b;
-      small = a;
+      big = Math.abs(b);
+      small = Math.abs(a);
     }
     int greatest = 0;
     int rem = 1;
@@ -88,6 +88,7 @@ public class RationalNumber extends RealNumber {
         small = rem;
       }
     }
+    return small;
   }
 
   /**
@@ -98,7 +99,6 @@ public class RationalNumber extends RealNumber {
   private void reduce(){
     numerator = numerator / gcd(numerator, denominator);
     denominator = denominator / gcd(numerator, denominator);
-
   }
   /******************Operations Return a new RationalNumber!!!!****************/
   /**
@@ -106,7 +106,7 @@ public class RationalNumber extends RealNumber {
   */
   public RationalNumber multiply(RationalNumber other){
     RationalNumber hello = new RationalNumber(numerator*other.getNumerator(), denominator*other.getDenominator());
-    hello = hello.reduce()
+    hello.reduce();
     return hello;
   }
 
@@ -114,7 +114,7 @@ public class RationalNumber extends RealNumber {
   *Return a new RationalNumber that is the this divided by the other
   */
   public RationalNumber divide(RationalNumber other){
-    return multiply(other.reciprocal);
+    return multiply(other.reciprocal());
   }
 
   /**
@@ -124,7 +124,8 @@ public class RationalNumber extends RealNumber {
     RationalNumber one = new RationalNumber(numerator*other.getDenominator(), denominator*other.getDenominator());
     RationalNumber two = new RationalNumber(other.getNumerator()*denominator, denominator*other.getDenominator());
     RationalNumber three = new RationalNumber(one.getNumerator()+two.getNumerator(), one.getDenominator());
-    return three.reduce();
+    three.reduce();
+    return three;
   }
   /**
   *Return a new RationalNumber that this minus the other
@@ -133,6 +134,7 @@ public class RationalNumber extends RealNumber {
     RationalNumber one = new RationalNumber(numerator*other.getDenominator(), denominator*other.getDenominator());
     RationalNumber two = new RationalNumber(other.getNumerator()*denominator, denominator*other.getDenominator());
     RationalNumber three = new RationalNumber(one.getNumerator()-two.getNumerator(), one.getDenominator());
-    return three.reduce();
+    three.reduce();
+    return three;
   }
 }
