@@ -60,7 +60,7 @@ public class RationalNumber extends Number {
   */
   public String toString(){
     reduce();
-    if (denominator==0){
+    if (denominator==1){
       return String.valueOf(numerator);
     }
     else if (numerator==0){
