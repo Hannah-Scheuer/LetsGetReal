@@ -1,4 +1,4 @@
-public class RationalNumber extends RealNumber {
+public class RationalNumber extends Number {
   private int numerator, denominator;
 
   /**Initialize the RationalNumber with the provided values
@@ -7,8 +7,7 @@ public class RationalNumber extends RealNumber {
   *@param deno the denominator
   */
   public RationalNumber(int nume, int deno){
-    super(0.0);//this value is ignored!
-    int gcf = gcd(numerator, denominator);
+    int gcf = gcd(nume, deno);
     if (deno == 0){
       numerator = 0;
       denominator = 1;
@@ -18,8 +17,8 @@ public class RationalNumber extends RealNumber {
       denominator = -1 * deno;
     }
     else{
-      numerator = nume/gcf;
-      denominator = deno/gcf;
+      numerator = nume;
+      denominator = deno;
     }
   }
 
@@ -61,6 +60,12 @@ public class RationalNumber extends RealNumber {
   */
   public String toString(){
     reduce();
+    if (denominator==0){
+      return String.valueOf(numerator);
+    }
+    else if (numerator==0){
+      return "0";
+    }
     return numerator+"/"+denominator;
   }
 
@@ -73,7 +78,9 @@ public class RationalNumber extends RealNumber {
   private static int gcd(int a, int b){
     int big = Math.max(a,b);
     int small = Math.min(a,b);
-
+    if (a==0 || b==0){
+      return 1;
+    }
     if (Math.abs(a)>Math.abs(b)){
       big = Math.abs(a);
       small= Math.abs(b);
