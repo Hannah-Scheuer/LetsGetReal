@@ -23,5 +23,9 @@ public abstract class Number{
   *Special case: if one is exactly zero, the other must be exactly zero.
   */
   public boolean equals(Number other){
-    //TO BE IMPLEMENTED  }
+    if (other.getValue()==0.0 || getValue() == 0.0 ){
+      return getValue() == other.getValue();
+    }
+    double diff = Math.abs(other.getValue() - getValue());
+    return diff < 0.00001;
 }
