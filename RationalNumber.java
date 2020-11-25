@@ -8,17 +8,18 @@ public class RationalNumber extends RealNumber {
   */
   public RationalNumber(int nume, int deno){
     super(0.0);//this value is ignored!
+    int gcf = gcd(numerator, denominator);
     if (deno == 0){
       numerator = 0;
       denominator = 1;
     }
-    if (deno<0){
+    else if (deno<0){
       numerator = -1 * nume;
       denominator = -1 * deno;
     }
     else{
-      numerator = nume;
-      denominator = deno;
+      numerator = nume/gcf;
+      denominator = deno/gcf;
     }
   }
 
@@ -59,6 +60,7 @@ public class RationalNumber extends RealNumber {
   *@return the value expressed as "3/4" or "8/3"
   */
   public String toString(){
+    reduce();
     return numerator+"/"+denominator;
   }
 
@@ -67,9 +69,11 @@ public class RationalNumber extends RealNumber {
   *@param b the second integer
   *@return the value of the GCD
   */
+
   private static int gcd(int a, int b){
-    int big =0;
-    int small =0;
+    int big = Math.max(a,b);
+    int small = Math.min(a,b);
+
     if (Math.abs(a)>Math.abs(b)){
       big = Math.abs(a);
       small= Math.abs(b);
@@ -78,7 +82,6 @@ public class RationalNumber extends RealNumber {
       big = Math.abs(b);
       small = Math.abs(a);
     }
-    int greatest = 0;
     int rem = 1;
     while (rem!=0){
       rem = big % small;
@@ -99,6 +102,10 @@ public class RationalNumber extends RealNumber {
     int gcf = gcd(numerator, denominator);
     numerator = numerator / gcf;
     denominator = denominator / gcf;
+    if (denominator==0){
+      numerator = 0;
+      denominator = 1;
+    }
   }
   /******************Operations Return a new RationalNumber!!!!****************/
   /**
