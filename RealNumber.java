@@ -18,13 +18,6 @@ public class RealNumber extends Number{
   *Return true when the values are within 0.001% of eachother.
   *Special case: if one is exactly zero, the other must be exactly zero.
   */
-  public boolean equals(RealNumber other){
-    if (other.getValue()==0.0 || value == 0.0 ){
-      return value == other.getValue();
-    }
-    double diff = Math.abs(other.getValue() - value);
-    return diff < 0.00001;
-  }
 
   /*
   *Return a new RealNumber that has the value of:
